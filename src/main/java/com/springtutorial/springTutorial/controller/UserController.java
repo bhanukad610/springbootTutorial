@@ -28,4 +28,15 @@ public class UserController {
     public void addUser(@RequestBody User user){
         userService.addUser(user);
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/user/{username}")
+    public void updateUser(@RequestBody User user, @PathVariable String username){
+        userService.updateUser(username, user);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/user/{username}")
+    public void deleteUser(@PathVariable String username){
+        userService.deleteUser(username);
+    }
+
 }
