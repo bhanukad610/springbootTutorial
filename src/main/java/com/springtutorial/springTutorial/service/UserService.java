@@ -15,12 +15,15 @@ public class UserService {
             new User("google", "google123", "google@gmial.com")
     );
 
-    public List<User> GetAllUsers(){
+    public List<User> getAllUsers(){
         return users;
     }
 
-    public User GetUserByUserName(String username){
+    public User getUserByUserName(String username){
         return users.stream().filter(user -> user.getUsername().equals(username)).findFirst().get();
     }
 
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

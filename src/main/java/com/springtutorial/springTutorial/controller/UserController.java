@@ -3,9 +3,7 @@ package com.springtutorial.springTutorial.controller;
 import com.springtutorial.springTutorial.model.User;
 import com.springtutorial.springTutorial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -17,12 +15,17 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/users")
-    public List<User> GetAllUsers(){
-        return userService.GetAllUsers();
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
     }
 
     @RequestMapping("/user/{username}")
-    public User GetUser(@PathVariable String username){
-        return userService.GetUserByUserName(username);
+    public User getUser(@PathVariable String username){
+        return userService.getUserByUserName(username);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/user")
+    public void addUser(@RequestBody User user){
+        userService.addUser(user);
     }
 }
