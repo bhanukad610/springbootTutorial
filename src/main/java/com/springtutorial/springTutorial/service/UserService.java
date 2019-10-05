@@ -1,44 +1,40 @@
 package com.springtutorial.springTutorial.service;
 
 import com.springtutorial.springTutorial.model.User;
+import com.springtutorial.springTutorial.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private List<User> users = new ArrayList<>( Arrays.asList(
-            new User("alexa", "alexa123", "alexa@gmial.com"),
-            new User("siri", "siri123", "siri@gmial.com"),
-            new User("google", "google123", "google@gmial.com")
-    ));
+    @Autowired
+    private UserRepository userRepository;
 
     public List<User> getAllUsers(){
-        return users;
+        List<User> userList = new ArrayList<>();
+        userRepository.findAll().forEach(userList::add);
+        return userList;
     }
 
-    public User getUserByUserName(String username){
-        return users.stream().filter(user -> user.getUsername().equals(username)).findFirst().get();
+    public Optional<User> getUserByUserName(String username){
+       return userRepository.findById(username);
+
     }
 
     public void addUser(User user) {
-        users.add(user);
+        userRepository.save(user);
     }
 
-    public void updateUser(String username, User user) {
-        for (int i = 0; i < users.size(); i++){
-            User u = users.get(i);
-            if (u.getUsername().equals(username)){
-                users.set(i, user);
-                return;
-            }
-        }
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 
     public void deleteUser(String username) {
-        users.removeIf(u -> u.getUsername().equals(username));
+       userRepository.deleteById(username);
     }
 }

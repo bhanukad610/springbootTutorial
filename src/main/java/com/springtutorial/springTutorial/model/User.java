@@ -1,19 +1,26 @@
 package com.springtutorial.springTutorial.model;
+import javax.persistence.Id;
 
+import javax.persistence.*;
+
+@Entity
 public class User {
 
+    @Id
     private String username;
     private String password;
     private String email;
 
+    public User() {
+    }
+
     public User(String username, String password, String email) {
+        super();
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public User() {
-    }
 
     public String getUsername() {
         return username;
@@ -38,5 +45,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

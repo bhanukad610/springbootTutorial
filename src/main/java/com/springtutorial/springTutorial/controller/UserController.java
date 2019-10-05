@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @RequestMapping("/user/{username}")
-    public User getUser(@PathVariable String username){
+    public Optional<User> getUser(@PathVariable String username){
         return userService.getUserByUserName(username);
     }
 
@@ -29,9 +30,9 @@ public class UserController {
         userService.addUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/user/{username}")
-    public void updateUser(@RequestBody User user, @PathVariable String username){
-        userService.updateUser(username, user);
+    @RequestMapping(method = RequestMethod.PUT, value = "/user")
+    public void updateUser(@RequestBody User user){
+        userService.updateUser(user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/user/{username}")
