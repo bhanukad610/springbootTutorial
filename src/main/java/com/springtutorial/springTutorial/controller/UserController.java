@@ -9,32 +9,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/users")
+    @GetMapping("/getAllUsers")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
-    @RequestMapping("/user/{username}")
+    @GetMapping("/getUser/{username}")
     public User getUser(@PathVariable String username){
         return userService.getUserByUserName(username);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/user")
+    @PostMapping("/addUser")
     public void addUser(@RequestBody User user){
         userService.addUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/user/{username}")
+    @PutMapping("/user/{username}")
     public void updateUser(@RequestBody User user, @PathVariable String username){
         userService.updateUser(username, user);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/user/{username}")
+    @DeleteMapping("/user/{username}")
     public void deleteUser(@PathVariable String username){
         userService.deleteUser(username);
     }
